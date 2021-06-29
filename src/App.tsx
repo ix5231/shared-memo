@@ -1,3 +1,11 @@
+import {
+  AppBar,
+  Button,
+  Typography,
+  Container,
+  Toolbar,
+  Box,
+} from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
@@ -29,21 +37,43 @@ const App = () => {
   const isSignedIn = useAuth();
 
   return (
-    <div className="App">
-      <h1>Login Page</h1>
-      {!isSignedIn ? (
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
-      ) : (
-        <button onClick={() => firebase.auth().signOut()}>Logout</button>
-      )}
-      <AccountStatus
-        name={firebase.auth().currentUser?.displayName ?? undefined}
-      />
-    </div>
+    <Container className="App">
+      <AppBar>
+        <Toolbar>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <Typography variant="h6">Shared Memo</Typography>
+            <AccountStatus />
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box pt={10}>
+        <Typography variant="h4">Login Page</Typography>
+        {!isSignedIn ? (
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        ) : (
+          <LogoutButton />
+        )}
+      </Box>
+    </Container>
   );
 };
+
+export const LogoutButton = () => (
+  <Button
+    variant="contained"
+    color="secondary"
+    onClick={() => firebase.auth().signOut()}
+  >
+    Logout
+  </Button>
+);
 
 export default App;
