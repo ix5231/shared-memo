@@ -1,16 +1,10 @@
-import {
-  AppBar,
-  Button,
-  Typography,
-  Container,
-  Toolbar,
-  Box,
-} from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import AccountStatus from "./components/AccountStatus";
-import { useAuth } from "./hooks/useAuth";
+import SharedMemoBar from "src/components/SharedMemoBar";
+import { useAuth } from "src/hooks/useAuth";
+import HomePage from "src/pages/HomePage";
+import LoginPage from "src/pages/LoginPage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDr8RK6Lkv8P6ZHZQNOVHuHjhPyMF_8hjg",
@@ -38,42 +32,10 @@ const App = () => {
 
   return (
     <Container className="App">
-      <AppBar>
-        <Toolbar>
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            width="100%"
-          >
-            <Typography variant="h6">Shared Memo</Typography>
-            <AccountStatus />
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box pt={10}>
-        <Typography variant="h4">Login Page</Typography>
-        {!isSignedIn ? (
-          <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
-        ) : (
-          <LogoutButton />
-        )}
-      </Box>
+      <SharedMemoBar />
+      <Box pt={10}>{!isSignedIn ? <LoginPage /> : <HomePage />}</Box>
     </Container>
   );
 };
-
-export const LogoutButton = () => (
-  <Button
-    variant="contained"
-    color="secondary"
-    onClick={() => firebase.auth().signOut()}
-  >
-    Logout
-  </Button>
-);
 
 export default App;

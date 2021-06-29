@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import firebase from "firebase";
 import React from "react";
-import PopperMenu from "./PopperMenu";
+import PopperMenu from "src/components/PopperMenu";
 
 const AccountStatus = () => {
   const anchorRef = React.useRef(null);
