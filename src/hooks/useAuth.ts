@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import { useState, useEffect } from "react";
 
 export const useAuth = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     const unregisterAuthObserver = firebase

@@ -33,7 +33,13 @@ const App = () => {
   return (
     <Container className="App">
       <SharedMemoBar />
-      <Box pt={10}>{!isSignedIn ? <LoginPage /> : <HomePage />}</Box>
+      <Box pt={10}>
+        {isSignedIn === true ? (
+          <HomePage />
+        ) : isSignedIn === false ? (
+          <LoginPage />
+        ) : null}
+      </Box>
     </Container>
   );
 };
