@@ -1,20 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
-  userLoggedIn: boolean;
+  userLoginStatus: "active" | "inactive" | "loading";
 }
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    userLoggedIn: false,
+    userLoginStatus: "loading",
   } as AuthState,
   reducers: {
     login: (state) => {
-      state.userLoggedIn = true;
+      state.userLoginStatus = "active";
     },
     logout: (state) => {
-      state.userLoggedIn = false;
+      state.userLoginStatus = "inactive";
     },
   },
 });

@@ -6,21 +6,22 @@ import { RootState } from "src/state/store";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state: RootState) => state.auth.userLoggedIn);
+  const userStatus = useSelector(
+    (state: RootState) => state.auth.userLoginStatus
+  );
 
   useEffect(() => {
     const unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged((user) => {
-        console.log("a");
         if (user) {
-          dispatch(login);
+          dispatch(login());
         } else {
-          dispatch(logout);
+          dispatch(logout());
         }
       });
     return () => unregisterAuthObserver();
   }, [dispatch]);
 
-  return isLoggedIn;
+  return userStatus;
 };

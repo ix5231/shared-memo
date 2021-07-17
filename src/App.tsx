@@ -28,15 +28,15 @@ export const uiConfig = {
 };
 
 const App = () => {
-  const isLoggedIn = useAuth();
+  const userStatus = useAuth();
 
   return (
     <Container className="App">
       <SharedMemoBar />
       <Box pt={10}>
-        {isLoggedIn === true ? (
+        {userStatus === "active" ? (
           <HomePage />
-        ) : isLoggedIn === false ? (
+        ) : userStatus === "inactive" ? (
           <LoginPage />
         ) : null}
       </Box>
