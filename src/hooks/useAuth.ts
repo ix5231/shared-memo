@@ -15,7 +15,14 @@ export const useAuth = () => {
       .auth()
       .onAuthStateChanged((user) => {
         if (user) {
-          dispatch(login());
+          dispatch(
+            login({
+              userData: {
+                name: user.displayName ?? "Anonymous",
+                uid: user.uid,
+              },
+            })
+          );
         } else {
           dispatch(logout());
         }

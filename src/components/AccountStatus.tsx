@@ -8,12 +8,9 @@ import {
 import firebase from "firebase";
 import React from "react";
 import PopperMenu from "src/components/PopperMenu";
+import { useUser } from "src/hooks/useUser";
 
 const AccountStatus = () => {
-  const anchorRef = React.useRef(null);
-  const [open, setOpen] = React.useState(false);
-
-  const name = firebase.auth().currentUser?.displayName ?? undefined;
   const styles = makeStyles((theme) => ({
     allowSmallCase: {
       textTransform: "none",
@@ -23,6 +20,11 @@ const AccountStatus = () => {
       color: "#fff",
     },
   }))();
+
+  const anchorRef = React.useRef(null);
+  const [open, setOpen] = React.useState(false);
+
+  const userData = useUser();
 
   const handleClick = React.useCallback((_event) => setOpen(true), [setOpen]);
   const handleClose = React.useCallback(() => setOpen(false), [setOpen]);
@@ -37,7 +39,7 @@ const AccountStatus = () => {
   return (
     <Box>
       <Typography variant="body1">
-        {name ? (
+        {userData?.name ? (
           <>
             <Button
               aria-controls="profile-menu"
@@ -46,7 +48,9 @@ const AccountStatus = () => {
               ref={anchorRef}
               className={styles.allowSmallCase}
             >
-              <span className={styles.accountStatus}>{`Hi, ${name}!`}</span>
+              <span
+                className={styles.accountStatus}
+              >{`Hi, ${userData.name}!`}</span>
             </Button>
             <PopperMenu
               id="profile-menu"
