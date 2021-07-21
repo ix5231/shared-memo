@@ -4,9 +4,11 @@ import {
   ConfigureStoreOptions,
 } from "@reduxjs/toolkit";
 import authReducers from "src/features/auth/authSlice";
+import { firebaseReducer } from "react-redux-firebase";
 
 const rootReducer = combineReducers({
   auth: authReducers,
+  firebase: firebaseReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
