@@ -1,3 +1,5 @@
+import firebase from "firebase/app";
+import "firebase/auth";
 import {
   Box,
   Button,
@@ -5,7 +7,6 @@ import {
   MenuItem,
   Typography,
 } from "@material-ui/core";
-import firebase from "firebase";
 import React from "react";
 import PopperMenu from "src/components/PopperMenu";
 import { useUser } from "src/hooks/useUser";

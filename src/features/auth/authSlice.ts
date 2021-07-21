@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface User {
-  name: string;
-  uid: string;
-}
+import { User } from "src/models";
 
 interface AuthState {
   userLoginStatus: "active" | "inactive" | "loading";
@@ -26,6 +22,7 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.userLoginStatus = "inactive";
+      state.userData = undefined;
     },
   },
 });

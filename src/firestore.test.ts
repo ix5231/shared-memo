@@ -8,7 +8,7 @@ import * as firebase from "@firebase/rules-unit-testing";
 
 const projectId = "shared-memo-5ef64";
 
-describe("ユーザーデータの取得", () => {
+describe.skip("ユーザーデータの取得", () => {
   beforeAll(async () => {
     const rules = fs.readFileSync("firestore.rules", "utf8");
     await firebase.loadFirestoreRules({ projectId, rules });
