@@ -13,6 +13,7 @@ import store from "./state/store";
 
 import App from "src/App";
 import reportWebVitals from "src/reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -39,7 +40,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <ThemeProvider theme={theme}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </ReactReduxFirebaseProvider>
     </Provider>

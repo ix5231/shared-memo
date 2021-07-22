@@ -3,9 +3,13 @@ import { Typography } from "@material-ui/core";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useFirebase } from "react-redux-firebase";
 import fb from "firebase/app";
+import { useSelector } from "react-redux";
+import { authStateSelector } from "src/features/firebase/selector";
+import { Redirect } from "react-router-dom";
 
 const LoginPage = () => {
   const firebase = useFirebase();
+  const state = useSelector(authStateSelector);
 
   const uiConfig = {
     signInFlow: "popup",
@@ -20,8 +24,17 @@ const LoginPage = () => {
 
   return (
     <>
-      <Typography variant="h4">Login Page</Typography>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      {state === "loading" ? null : state === "inactive" ? (
+        <>
+          <Typography variant="h4">Login Page</Typography>
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </>
+      ) : (
+        <Redirect to="/" />
+      )}
     </>
   );
 };
