@@ -1,4 +1,4 @@
-import { renderWithAuth, screen, waitFor } from "src/testUtils";
+import { render, screen, waitFor } from "src/testUtils";
 import HomePage from "../HomePage";
 import { Memo } from "src/models";
 import * as useUserMemosObj from "src/features/firestore/hooks";
@@ -26,10 +26,7 @@ test("メモ一覧画面が表示される", async () => {
     .spyOn(useUserMemosObj, "useUserMemos")
     .mockReturnValue(memos);
 
-  renderWithAuth(<HomePage />, {
-    name: "Test user",
-    uid: "test",
-  });
+  render(<HomePage />);
 
   // メモ新規作成ボタン
   expect(

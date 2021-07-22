@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { authSelector } from "src/features/firebase/selector";
-import { isEmpty, isLoaded, useFirebase } from "react-redux-firebase";
+import { userSelector } from "src/features/firebase/selector";
 import {
   Box,
   Button,
@@ -11,6 +10,7 @@ import {
 } from "@material-ui/core";
 
 import PopperMenu from "src/components/PopperMenu";
+import { useUserUtils } from "src/features/firebase/hooks";
 
 const AccountStatus = () => {
   const styles = makeStyles((theme) => ({
@@ -23,15 +23,15 @@ const AccountStatus = () => {
     },
   }))();
 
-  const anchorRef = React.useRef(null);
-  const [open, setOpen] = React.useState(false);
+  const anchorRef = useRef(null);
+  const [open, setOpen] = useState(false);
 
-  const firebase = useFirebase();
-  const auth = useSelector(authSelector);
+  const { logout } = useUserUtils();
+  const [user, isLoaded] = useSelector(userSelector);
 
-  const handleClick = React.useCallback((_event) => setOpen(true), [setOpen]);
-  const handleClose = React.useCallback(() => setOpen(false), [setOpen]);
-  const onLogout = React.useCallback(() => firebase.logout(), [firebase]);
+  const handleClick = useCallback((_event) => setOpen(true), [setOpen]);
+  const handleClose = useCallback(() => setOpen(false), [setOpen]);
+  const onLogout = useCallback(() => logout(), [logout]);
   const withClose = (f: () => void) => {
     return () => {
       f();
@@ -42,8 +42,8 @@ const AccountStatus = () => {
   return (
     <Box>
       <Typography variant="body1">
-        {isLoaded(auth) &&
-          (!isEmpty(auth) ? (
+        {isLoaded &&
+          (user ? (
             <>
               <Button
                 aria-controls="profile-menu"
@@ -54,7 +54,7 @@ const AccountStatus = () => {
               >
                 <span
                   className={styles.accountStatus}
-                >{`Hi, ${auth.displayName}!`}</span>
+                >{`Hi, ${user.name}!`}</span>
               </Button>
               <PopperMenu
                 id="profile-menu"

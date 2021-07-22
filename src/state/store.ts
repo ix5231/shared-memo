@@ -4,12 +4,10 @@ import {
   ConfigureStoreOptions,
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
-import authReducers from "src/features/auth/authSlice";
 import { actionTypes, firebaseReducer } from "react-redux-firebase";
 import { firestoreReducer } from "redux-firestore";
 
 const rootReducer = combineReducers({
-  auth: authReducers,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
 });
