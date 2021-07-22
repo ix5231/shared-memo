@@ -1,22 +1,21 @@
 import React from "react";
 import { Button, List, ListItem, Typography } from "@material-ui/core";
-import { useUserMemos } from "src/hooks/useUserMemos";
+import { useUserMemos } from "src/features/firestore/hooks";
 
 const HomePage = () => {
-  const [memos, isLoading, errorOccured] = useUserMemos();
+  const memos = useUserMemos();
 
   return (
     <>
       <Button aria-label="新しいメモの作成">NEW</Button>
-      {errorOccured ? (
-        <Typography>error!</Typography>
-      ) : isLoading ? (
-        <Typography></Typography>
-      ) : (
-        <List>
-          {memos && memos.map((m) => <ListItem key={m.id}>{m.title}</ListItem>)}
-        </List>
-      )}
+      <List>
+        {memos &&
+          memos.map((m) => (
+            <ListItem key={m.id}>
+              <Typography>{m.title}</Typography>
+            </ListItem>
+          ))}
+      </List>
     </>
   );
 };

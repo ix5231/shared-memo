@@ -1,7 +1,7 @@
 import { renderWithAuth, screen, waitFor } from "src/testUtils";
-import * as memosService from "src/services/memosService";
 import HomePage from "../HomePage";
 import { Memo } from "src/models";
+import * as useUserMemosObj from "src/features/firestore/hooks";
 
 const memos: Memo[] = [
   {
@@ -22,9 +22,9 @@ const memos: Memo[] = [
 ];
 
 test("メモ一覧画面が表示される", async () => {
-  const memoServiceSpy = jest
-    .spyOn(memosService, "getMemos")
-    .mockResolvedValueOnce(memos);
+  const useUserMemosSpy = jest
+    .spyOn(useUserMemosObj, "useUserMemos")
+    .mockReturnValue(memos);
 
   renderWithAuth(<HomePage />, {
     name: "Test user",
@@ -44,7 +44,7 @@ test("メモ一覧画面が表示される", async () => {
   expect(screen.getByText("title3")).toBeInTheDocument();
 
   // メモの取得が1回だけか
-  expect(memoServiceSpy).toHaveBeenCalledTimes(1);
+  expect(useUserMemosSpy).toHaveBeenCalledTimes(1);
 
   jest.clearAllMocks();
 });

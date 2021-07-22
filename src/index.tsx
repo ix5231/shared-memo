@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { createFirestoreInstance } from "redux-firestore";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
 import store from "./state/store";
@@ -23,11 +25,13 @@ const firebaseConfig = {
   appId: "1:355138905316:web:6946885dbd201c99b478f1",
 };
 firebase.initializeApp(firebaseConfig);
+firebase.firestore();
 
 const rrfProps = {
   firebase,
   config: {},
   dispatch: store.dispatch,
+  createFirestoreInstance,
 };
 
 ReactDOM.render(
