@@ -5,6 +5,8 @@ import SharedMemoBar from "src/components/SharedMemoBar";
 import CreateMemo from "src/pages/CreateMemo";
 import HomePage from "src/pages/HomePage";
 import LoginPage from "src/pages/LoginPage";
+import MemoProvider from "./components/MemoProvider";
+import MemoViewPage from "./pages/MemoViewPage";
 
 const App = () => {
   return (
@@ -16,12 +18,18 @@ const App = () => {
             <LoginPage />
           </Route>
           <PrivateRoute>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/create-memo">
-              <CreateMemo />
-            </Route>
+            <MemoProvider>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route exact path="/create-memo">
+                <CreateMemo />
+              </Route>
+              <Route
+                path="/memos/:id"
+                render={({ match }) => <MemoViewPage id={match.params.id} />}
+              />
+            </MemoProvider>
           </PrivateRoute>
         </Switch>
       </Box>

@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
-import { Button, List, ListItem, Typography } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
+import { Button, Link, List, ListItem, Typography } from "@material-ui/core";
 import { useUserMemos } from "src/features/firestore/hooks";
 import { useHistory } from "react-router-dom";
 
@@ -21,9 +22,13 @@ const HomePage = () => {
       <List>
         {memos &&
           memos.map((m) => (
-            <ListItem key={m.id}>
-              <Typography>{m.title}</Typography>
-            </ListItem>
+            <Typography key={m.id}>
+              <ListItem>
+                <Link component={RouterLink} to={`/memos/${m.id}`}>
+                  {m.title}
+                </Link>
+              </ListItem>
+            </Typography>
           ))}
       </List>
     </>
