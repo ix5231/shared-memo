@@ -2,7 +2,7 @@ import { Box, Container } from "@material-ui/core";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "src/components/PrivateRoute";
 import SharedMemoBar from "src/components/SharedMemoBar";
-import CreateMemo from "src/pages/CreateMemo";
+import MemoCreatePage from "src/pages/MemoCreatePage";
 import HomePage from "src/pages/HomePage";
 import LoginPage from "src/pages/LoginPage";
 import MemoProvider from "./components/MemoProvider";
@@ -24,7 +24,7 @@ const App = () => {
                 <HomePage />
               </Route>
               <Route exact path="/create-memo">
-                <CreateMemo />
+                <MemoCreatePage />
               </Route>
               <Route
                 exact
