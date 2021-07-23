@@ -22,12 +22,16 @@ interface Props {
 
 const MemoViewPage = ({ id }: Props) => {
   const styles = useStyle();
-  const { getMemo } = useMemoUtils();
+  const { getMemo, deleteMemo } = useMemoUtils();
   const memo = getMemo(id);
   const history = useHistory();
-  const onClick = useCallback(() => {
+  const onEdit = useCallback(() => {
     history.push(`/memos/${id}/edit`);
   }, [id, history]);
+  const onDelete = useCallback(() => {
+    deleteMemo(id);
+    history.push(`/`);
+  }, [id, deleteMemo, history]);
 
   return (
     <>
@@ -39,7 +43,8 @@ const MemoViewPage = ({ id }: Props) => {
           <Typography component="article" className={styles.memoContainer}>
             {memo.content}
           </Typography>
-          <Button onClick={onClick}>EDIT</Button>
+          <Button onClick={onEdit}>EDIT</Button>
+          <Button onClick={onDelete}>DELETE</Button>
         </>
       )}
     </>

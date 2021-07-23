@@ -40,5 +40,13 @@ export const useMemoUtils = () => {
       },
       [targetPath, firestore]
     ),
+    deleteMemo: useCallback(
+      (id: string) => {
+        if (targetPath) {
+          firestore.delete({ collection: targetPath, doc: id });
+        }
+      },
+      [targetPath, firestore]
+    ),
   };
 };
