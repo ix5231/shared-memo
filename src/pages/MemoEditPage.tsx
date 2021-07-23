@@ -8,10 +8,9 @@ interface Props {
 }
 
 const MemoEditPage = ({ id }: Props) => {
-  const { getMemo } = useMemoUtils();
+  const { isReady, editMemo, getMemo } = useMemoUtils();
   const memo = getMemo(id);
   const history = useHistory();
-  const { isReady, editMemo } = useMemoUtils();
   const onSubmit = useCallback(
     (values) => {
       const { title, content } = values;
