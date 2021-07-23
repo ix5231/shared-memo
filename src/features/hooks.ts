@@ -12,17 +12,25 @@ const memoPathSelector = createSelector(
 
 export const useMemoUtils = () => {
   const firestore = useFirestore();
-  const addPath = useSelector(memoPathSelector);
+  const targetPath = useSelector(memoPathSelector);
 
   return {
-    isReady: !!addPath,
+    isReady: !!targetPath,
     addMemo: useCallback(
       (memo: Omit<Memo, "id">) => {
-        if (addPath) {
-          firestore.collection(addPath).add(memo);
+        if (targetPath) {
+          firestore.collection(targetPath).add(memo);
         }
       },
-      [addPath, firestore]
+      [targetPath, firestore]
+    ),
+    editMemo: useCallback(
+      (id: string, memo: Omit<Memo, "id">) => {
+        if (targetPath) {
+          firestore.collection(targetPath).doc(id).set(memo);
+        }
+      },
+      [targetPath, firestore]
     ),
   };
 };
