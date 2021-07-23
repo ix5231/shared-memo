@@ -44,7 +44,9 @@ const MemoViewPage = ({ id }: Props) => {
             {memo.content}
           </Typography>
           <Button onClick={onEdit}>EDIT</Button>
-          <Button onClick={onDelete}>DELETE</Button>
+          <Button onClick={onDelete} color="secondary">
+            DELETE
+          </Button>
         </>
       )}
     </>
