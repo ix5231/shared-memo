@@ -22,8 +22,7 @@ export const memosSelector = createSelector(
   (data) => data.myMemos as Memo[] | undefined
 );
 
-export const memoSelectorFactory = (id: string) =>
-  createSelector(
-    dataSelector,
-    (data) => (data.myMemos && data.myMemos[id]) as Memo | undefined
-  );
+export const memosRecordSelector = createSelector(
+  dataSelector,
+  (data) => data.myMemos as Record<string, Memo> | undefined
+);

@@ -1,8 +1,6 @@
 import { useCallback } from "react";
-import { useSelector, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
 import MemoForm from "src/components/MemoForm";
-import { memoSelectorFactory } from "src/features/firestore/selector";
 import { useMemoUtils } from "src/features/hooks";
 
 interface Props {
@@ -10,8 +8,8 @@ interface Props {
 }
 
 const MemoEditPage = ({ id }: Props) => {
-  const memoSelector = memoSelectorFactory(id);
-  const memo = useSelector(memoSelector, shallowEqual);
+  const { getMemo } = useMemoUtils();
+  const memo = getMemo(id);
   const history = useHistory();
   const { isReady, editMemo } = useMemoUtils();
   const onSubmit = useCallback(

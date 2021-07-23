@@ -5,9 +5,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useCallback } from "react";
-import { shallowEqual, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { memoSelectorFactory } from "src/features/firestore/selector";
+import { useMemoUtils } from "src/features/hooks";
 
 const useStyle = makeStyles(
   createStyles({
@@ -23,8 +22,8 @@ interface Props {
 
 const MemoViewPage = ({ id }: Props) => {
   const styles = useStyle();
-  const memoSelector = memoSelectorFactory(id);
-  const memo = useSelector(memoSelector, shallowEqual);
+  const { getMemo } = useMemoUtils();
+  const memo = getMemo(id);
   const history = useHistory();
   const onClick = useCallback(() => {
     history.push(`/memos/${id}/edit`);
